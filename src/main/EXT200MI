@@ -301,28 +301,28 @@ public class GetPOData extends ExtendM3Transaction {
      
     pnli = container2.get("MTRIDL");
      
-    DBAction query4 = database.table("MPLINE").index("00").selection("IBCONO", "IBPUNO", "IBSUNO", "IBPITD", "IBITNO", "IBORQA", "IBPITT", "IBLNAM", "IBWHLO").build()
-    DBContainer container4 = query4.getContainer()
-    container4.set("IBCONO", cono.toInteger())
-    container4.set("IBPUNO", container2.get("MTRIDN").toString())
-    container4.set("IBPNLI", pnli.toInteger())
-    container4.set("IBPNLS", "0".toInteger())
+    DBAction query4 = database.table("MPLINE").index("00").selection("IBCONO", "IBPUNO", "IBSUNO", "IBPITD", "IBITNO", "IBORQA", "IBPITT", "IBLNAM", "IBWHLO").build();
+    DBContainer container4 = query4.getContainer();
+    container4.set("IBCONO", cono.toInteger());
+    container4.set("IBPUNO", container2.get("MTRIDN").toString());
+    container4.set("IBPNLI", pnli.toInteger());
+    container4.set("IBPNLS", "0".toInteger());
     
     if(query4.read(container4)) {
   
-      DBAction query5 = database.table("CIDMAS").index("00").selection("IDCONO", "IDSUNO", "IDSUNM").build()
-      DBContainer container5 = query5.getContainer()
-      container5.set("IDCONO", cono.toInteger())
-      container5.set("IDSUNO", container4.get("IBSUNO").toString())
+      DBAction query5 = database.table("CIDMAS").index("00").selection("IDCONO", "IDSUNO", "IDSUNM").build();
+      DBContainer container5 = query5.getContainer();
+      container5.set("IDCONO", cono.toInteger());
+      container5.set("IDSUNO", container4.get("IBSUNO").toString());
     
       if(query5.read(container5)) {
         mi.outData.put("SUNM", container5.get("IDSUNM").toString());
       }
   
-      DBAction query6 = database.table("MPHEAD").index("00").selection("IACONO", "IACUCD", "IASUNO").build()
-      DBContainer container6 = query6.getContainer()
-      container6.set("IACONO", cono.toInteger())
-      container6.set("IAPUNO", container4.get("IBPUNO").toString())
+      DBAction query6 = database.table("MPHEAD").index("00").selection("IACONO", "IACUCD", "IASUNO").build();
+      DBContainer container6 = query6.getContainer();
+      container6.set("IACONO", cono.toInteger());
+      container6.set("IAPUNO", container4.get("IBPUNO").toString());
     
       if (query6.read(container6)) {
         mi.outData.put("CUCD", container6.get("IACUCD").toString());
@@ -332,11 +332,11 @@ public class GetPOData extends ExtendM3Transaction {
       ExpressionFactory expression = database.getExpressionFactory("FGINLI");
       expression = expression.gt("F5IVNA", "0");    
       DBAction query7 = database.table("FGINLI").index("20").matching(expression).selection("F5SINO").build();
-      DBContainer container7 = query7.getContainer()
-      container7.set("F5CONO", cono.toInteger())
-      container7.set("F5PUNO", container4.get("IBPUNO").toString())
-      container7.set("F5PNLI", pnli.toInteger())
-      query7.readAll(container7, 3, releasedItemProcessor7)
+      DBContainer container7 = query7.getContainer();
+      container7.set("F5CONO", cono.toInteger());
+      container7.set("F5PUNO", container4.get("IBPUNO").toString());
+      container7.set("F5PNLI", pnli.toInteger());
+      query7.readAll(container7, 3, releasedItemProcessor7);
 
       mi.outData.put("CONO", container4.get("IBCONO").toString());
       mi.outData.put("WHLO", container4.get("IBWHLO").toString());
