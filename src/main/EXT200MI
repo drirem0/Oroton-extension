@@ -283,7 +283,7 @@ public class GetPOData extends ExtendM3Transaction {
     DBContainer container2 = query2.getContainer();
     container2.set("MTCONO", cono.toInteger());
     container2.set("MTANBR", anbr.toInteger());
-    query2.readAll(container2, 2, releasedItemProcessor2);
+    query2.readAll(container2, 2, 100, releasedItemProcessor2);
   
   }
   
